@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  get '/hello', to: 'application#hello_world'
+  resources :joins, only: [:create]
+  resources :nfts
+  resources :users, only: [:index, :update]
+
+  get "/auto_login", to: "users#show"
+  post "/sign_up", to: "users#create"
+
+  post '/login_back', to: "sessions#create"
+  delete '/logout_back', to: "sessions#destroy"
 
   get '*path',
       to: 'fallback#index',
